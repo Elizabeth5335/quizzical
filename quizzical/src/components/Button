@@ -1,0 +1,16 @@
+// import React from "react"
+
+// export default function Button(props){
+
+//     function toggleBtnClick(answer){
+//         props.toggleClick(answer)
+//     }
+
+//     return(  
+//         <button style={styles} className={
+//             `answer-btn ${props.selected ? " selected" : " not-selected"} 
+//             ${props.correct? " correct" : "incorrect"}`
+//         } 
+//         onClick={()=>toggleBtnClick(props.answer)}> {props.answer}</button>
+//     )
+// }
