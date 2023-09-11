@@ -1,47 +1,49 @@
 import React from "react"
+import {nanoid} from "nanoid"
 
 export default function Buttons(props){
-
-    const [selected, setSelected] = React.useState("")
 
     function setClass(answer){
         let classNm = "answer-btn"
         if(props.isChecked){
             if(props.correct_answer===answer){
                 classNm += " selected correct"
-                }
-                else if(answer===selected){
-                    classNm += " selected incorrect"
-                } 
+            }
+            else if(answer===props.selected_answer){
+                classNm += " selected incorrect"
+            } 
             else classNm += " not-selected"
         }
         else{
-            if(answer===selected){
-                classNm +=" selected"
-            }
-            else{
+            answer===props.selected_answer ? 
+                classNm +=" selected" :
                 classNm ="answer-btn"
-            }
         }
         return classNm
     }
+    
 
     function toggleBtnClick(answer){
-        setSelected(answer)
-        props.toggleClick(answer)
-    }
-
-    function setBtns(){
-        return props.answers.map((answer)=>{
-            return <button  className={setClass(answer)} 
-                            onClick={()=>toggleBtnClick(answer)}
-                    > {answer}</button>
-        })
+        if (props.isChecked){
+            return
+        }
+        props.setSelectedAnswer(answer, props.questionID)
     }
 
     return(  
         <div className="answers">
-            {setBtns()}
+            {
+                
+                props.answers.map((answer)=>{
+                    const htmlContent = { __html: answer};
+                    return <button  
+                                    key={nanoid()}
+                                    dangerouslySetInnerHTML={htmlContent} 
+                                    className={setClass(answer)} 
+                                    onClick={()=>toggleBtnClick(answer)}
+                            ></button>
+                })
+            }
         </div>
     )
 }

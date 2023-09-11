@@ -1,5 +1,6 @@
 import React from "react"
 import Question from "./Question"
+import {nanoid} from "nanoid"
 
 export default function Quiz(){
 
@@ -16,17 +17,21 @@ export default function Quiz(){
             async function getQuestions (){
                 const res = await fetch("https://opentdb.com/api.php?amount=5&category=31&type=multiple")
                 const data = await res.json();
-                const q = await data.results.map(question => {
+                let q = [];
 
-                    return(
-                        <Question 
-                            isChecked={isChecked}
-                            question={question.question}
-                            correct_answer={question.correct_answer}
-                            answers={shuffleArray(([...question.incorrect_answers, question.correct_answer]))}
-                        />
-                    )
-                })
+                data.results.forEach(question =>{
+                    const id = nanoid()
+                    q.push({
+                      id: id,
+                      key: id, 
+                      answers: shuffleArray([...question.incorrect_answers, question.correct_answer]), 
+                      question: question.question, 
+                      correct_answer: question.correct_answer, 
+                      selected_answer: null, 
+                      isChecked: false
+                      }
+                      )
+                  })
                 setQuestions(q)
             }
             getQuestions()
@@ -34,7 +39,33 @@ export default function Quiz(){
         []
     )
 
-    
+    function generateQuestions(){
+        return questions ? questions.map(question => {
+            return(
+                <Question 
+                    key={question.id}
+                    id={question.id}
+                    isChecked={isChecked}
+                    question={question.question}
+                    correct_answer={question.correct_answer}
+                    answers={question.answers}
+                    selected_answer={question.selected_answer}
+                    setSelectedAnswer={setSelectedAnswer}
+                />
+            )
+        }) : []
+    }
+
+
+    function setSelectedAnswer(answer, questionID){
+        setQuestions((prevQuestions) =>
+            prevQuestions.map((question) => {
+                return question.id===questionID ? {...question,  selected_answer: answer } : question;
+            })
+      );
+      console.log(questions)
+    }
+
     function checkAnswers(){
         setIsChecked(true)        
     }
@@ -42,15 +73,16 @@ export default function Quiz(){
     React.useEffect(() => {
         setQuestions((prevQuestions) =>
         prevQuestions.map((question) => {
-            return React.cloneElement(question, { isChecked: true });
+            return {...question,  isChecked: true };
         })
       );
       
     }, [isChecked]);
 
+
     return(
         <div className="quiz">
-            {questions}
+            {generateQuestions()}
             <button className="btn" onClick={checkAnswers}>Check answers</button>
         </div>
     )
