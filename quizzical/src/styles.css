@@ -151,3 +151,12 @@ hr{
     padding: 15px 30px;
     font-size: larger;
 }
+
+.results{
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.results h1{
+    margin: auto;
+}

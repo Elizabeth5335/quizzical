@@ -93,8 +93,10 @@ export default function Quiz(){
     return(
         <div className="quiz">
             {generateQuestions()}
-            <button className="btn result-btn" onClick={isChecked ? newGame : checkAnswers}>{isChecked? "Play again" : "Check answers"}</button>
-            {isChecked&&<h3>Score: {score}/5</h3>}
+            <div className="results">
+            {isChecked&&<h3>You scored {score}/5 correct answers</h3>}
+                <button className="btn result-btn" onClick={isChecked ? newGame : checkAnswers}>{isChecked? "Play again" : "Check answers"}</button>
+            </div>
         </div>
     )
 }
