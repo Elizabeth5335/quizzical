@@ -76,6 +76,10 @@ h1{
 
 .quiz{
     margin: 40px;
+    display: flex;
+    flex-flow: column;
+    justify-items: center;
+    align-items: center;
 }
 
 @media only screen and (max-width: 768px) {
@@ -83,6 +87,11 @@ h1{
         margin: 40px 20px;
     }
 }
+
+.question{
+    width: 100%;
+}
+
 .question-text{
     font-size: x-large;
     margin: 20px auto;
@@ -135,4 +144,10 @@ hr{
     border: 1px solid #DBDEF0;
     margin: 20px auto;
     width: 100%;
+}
+
+.result-btn{
+    margin: 30px;
+    padding: 15px 30px;
+    font-size: larger;
 }

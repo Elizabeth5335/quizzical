@@ -34,9 +34,9 @@ export default function Quiz(){
                   })
                 setQuestions(q)
             }
-            getQuestions()
+            if (isChecked === false) getQuestions()
         },
-        []
+        [isChecked]
     )
 
     function generateQuestions(){
@@ -67,7 +67,17 @@ export default function Quiz(){
     }
 
     function checkAnswers(){
-        setIsChecked(true)        
+        setIsChecked(true)  
+        let newScore = 0;
+        questions.forEach(question => {
+            if(question.selected_answer===question.correct_answer) newScore+=1
+        });
+        setScore(newScore)
+    }
+
+    function newGame(){
+        setIsChecked(false)  
+        setScore(0)
     }
 
     React.useEffect(() => {
@@ -83,7 +93,8 @@ export default function Quiz(){
     return(
         <div className="quiz">
             {generateQuestions()}
-            <button className="btn" onClick={checkAnswers}>Check answers</button>
+            <button className="btn result-btn" onClick={isChecked ? newGame : checkAnswers}>{isChecked? "Play again" : "Check answers"}</button>
+            {isChecked&&<h3>Score: {score}/5</h3>}
         </div>
     )
 }
