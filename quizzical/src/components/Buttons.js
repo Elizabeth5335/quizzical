@@ -4,20 +4,41 @@ export default function Buttons(props){
 
     const [selected, setSelected] = React.useState("")
 
+
+    React.useEffect(() => {
+        if (selected === props.correct_answer) {
+          props.increaseScore();
+        }
+    }, [props.isChecked & selected]);
+
+
+    console.log("selected ========= " + selected)
+
+
+    ///the problem is here
+
     function setClass(answer){
         let classNm = "answer-btn"
         if(props.isChecked){
             if(props.correct_answer===answer){
-                classNm += " selected correct"
-                }
-                else if(answer===selected){
-                    classNm += " selected incorrect"
-                } 
+                classNm += " correct"
+            } else if(answer===selected){
+                classNm += " incorrect"
+            } 
             else classNm += " not-selected"
+
+            // console.log(answer+"======="+selected)
+
+            if(answer===selected){
+                if(answer===props.correct_answer){
+                    console.log("I'm here ============")
+                    props.increaseScore()
+                }
+            }   
         }
         else{
             if(answer===selected){
-                classNm +=" selected"
+                classNm +=" selected";
             }
             else{
                 classNm ="answer-btn"
@@ -26,9 +47,11 @@ export default function Buttons(props){
         return classNm
     }
 
+
+
+
     function toggleBtnClick(answer){
         setSelected(answer)
-        props.toggleClick(answer)
     }
 
     function setBtns(){

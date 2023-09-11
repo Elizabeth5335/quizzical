@@ -114,13 +114,13 @@ h1{
     border: #D6DBF5 solid 2px;
 }
 
-.selected.correct{
+.correct{
     background-color: #94D7A2;
     color: #293264;
     border: #94D7A2 solid 2px;
 }
 
-.selected.incorrect{
+.incorrect{
     background-color: #F8BCBC;
     color: rgba(29, 32, 64, 0.5);
     border: #F8BCBC solid 2px;
