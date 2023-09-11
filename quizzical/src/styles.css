@@ -18,11 +18,15 @@ body{
 .spot-yellow{
     top: 0;
     right: 0;
+    height: 20%;
+    width: auto;
 }
 
 .spot-blue{
     bottom: 0;
     left: 0;
+    height: 20%;
+    width: auto;
 }
 
 
@@ -157,6 +161,6 @@ hr{
     flex-wrap: wrap;
 }
 
-.results h1{
+.results h3{
     margin: auto;
 }
